@@ -4,9 +4,9 @@
 #include <stdlib.h>
 
 /* defines */
-#define BROKER		"localhost"
-#define PORT		1883
-#define KEEPALIVE	500
+#define BROKER      "localhost"
+#define PORT        1883
+#define KEEPALIVE   500
 
 /* prototypes */
 void message_callback(struct mosquitto * mosq, void * obj , const struct mosquitto_message * message);
@@ -22,10 +22,10 @@ int main (void)
 {
     struct mosquitto * m_pMqtt;
     int rc;
-	
+
     /* initialise the library */
     mosquitto_lib_init();
-    
+
     /* Create a new handle to a mosquitto object */
     m_pMqtt = mosquitto_new(NULL, true, NULL);
     if (m_pMqtt == NULL)
@@ -58,10 +58,10 @@ int main (void)
         exit(1);
     }
  
- 	/* At this point we are connected to the broker and the network
- 	 * thread is running so we can subscribe and publish as we please.
- 	 * Any additional processing can be done using the callbacks we stup earlier
- 	 */
+    /* At this point we are connected to the broker and the network
+    * thread is running so we can subscribe and publish as we please.
+    * Any additional processing can be done using the callbacks we stup earlier
+    */
  
     sleep(1);
     
@@ -76,7 +76,7 @@ int main (void)
     
     sleep(1);
 
-	/* publish a message */    
+    /* publish a message */
     rc = mosquitto_publish(m_pMqtt, NULL, "testtopic", 6, "hello", 0, false);
     if (rc != MOSQ_ERR_SUCCESS)
     {
@@ -98,7 +98,7 @@ int main (void)
     
     sleep(1);
     
-	/* terminate the thread */
+    /* terminate the thread */
     rc = mosquitto_loop_stop(m_pMqtt, true);
     if (rc != MOSQ_ERR_SUCCESS)
     {
@@ -110,7 +110,7 @@ int main (void)
     /* clean up resources before exiting */
     cleanUp(m_pMqtt);
 
-	return 0;
+    return 0;
 }
 
 /* @brief Received message callback 
@@ -121,7 +121,7 @@ int main (void)
  */
 void message_callback(struct mosquitto * mosq, void * obj , const struct mosquitto_message * message)
 {
-    printf("\r\nMessage Callback\r\n");	
+    printf("\r\nMessage Callback\r\n");
     printf("\tID: %d\r\n", message->mid);
     printf("\tTopic: %s\r\n", message->topic);
     /* Assume the payload is a string in this example */
@@ -136,8 +136,8 @@ void message_callback(struct mosquitto * mosq, void * obj , const struct mosquit
  */
 void publish_callback(struct mosquitto * mosq, void * pbj, int mid)
 {
-	printf("\r\nPublish Callback\r\n");	
-	printf("\tID: %d\r\n", mid);
+    printf("\r\nPublish Callback\r\n");
+    printf("\tID: %d\r\n", mid);
 }
 
 /* @brief Publish callback 
@@ -150,7 +150,7 @@ void publish_callback(struct mosquitto * mosq, void * pbj, int mid)
  */
 void subscribe_callback(struct mosquitto * mosq, void * obj, int mid, int qos, const int * granted_qos)
 {
-    printf("\r\nSubscribe Callback\r\n");	
+    printf("\r\nSubscribe Callback\r\n");
     printf("\tID: %d\r\n", mid);
 }
 
@@ -164,7 +164,7 @@ void cleanUp (struct mosquitto * pMosq)
     mosquitto_destroy(pMosq);
     
     /* cleanup library */
-    mosquitto_lib_cleanup();	
+    mosquitto_lib_cleanup();
 }
 
 /* @brief Helper function to print error messages 
@@ -173,5 +173,5 @@ void cleanUp (struct mosquitto * pMosq)
  */
 void printError (int ec)
 {
-    fprintf(stderr, "ERROR: %s\r\n", mosquitto_strerror(ec));    
+    fprintf(stderr, "ERROR: %s\r\n", mosquitto_strerror(ec));
 }
