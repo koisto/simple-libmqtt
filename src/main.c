@@ -16,7 +16,7 @@ void cleanUp (struct mosquitto * pMosq);
 void printError (int ec);
 
 /* @brief Main application entry point
- * @return On sucess 0, otherwsie 1.
+ * @return On sucess 0, otherwise 1.
  */
 int main (void)
 {
@@ -35,7 +35,7 @@ int main (void)
         exit(1);
     } 
 
-    /* setup any callback that we want to use */
+    /* setup any callbacks that we want to use */
     mosquitto_publish_callback_set(m_pMqtt, publish_callback);
     mosquitto_subscribe_callback_set(m_pMqtt, subscribe_callback);
     mosquitto_message_callback_set(m_pMqtt, message_callback);
@@ -60,7 +60,7 @@ int main (void)
  
     /* At this point we are connected to the broker and the network
     * thread is running so we can subscribe and publish as we please.
-    * Any additional processing can be done using the callbacks we stup earlier
+    * Any additional processing can be done using the callbacks we setup earlier
     */
  
     sleep(1);
